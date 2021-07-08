@@ -3,7 +3,7 @@ Covid Data Visualization Using Python Dash and Plotly
 
 Make sure that you have Dash installed
 
-'''pip install dash'''
+´´´pip install dash´´´
 
 Plotly examples use Pandas, so it's good to install it
 
