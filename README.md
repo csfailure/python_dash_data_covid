@@ -13,6 +13,8 @@ to Run the file go to the file folder in the terminal and run it
 
 ```python python_dash.py```
 
+please upgrade pandas and numpy
+
 It should look like this:
 
 ![Alt Text](/covid_data_python_dash/data_gif.gif)
