@@ -18,7 +18,7 @@ url ="https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/ow
 #create a yesterday's date string to use in the new csv file
 today = datetime.date.today()
 
-yesterday = today - datetime.timedelta(days=2)
+yesterday = today - datetime.timedelta(days=1)
 yesterday_to_string = str(yesterday)
 
 #modify data in a new csv file to show only the latest date
@@ -38,6 +38,8 @@ with open("data1/temp.csv", 'r') as inp, open("data1/updated_data.csv", 'w') as 
             writer.writerow(row)
 
 app = dash.Dash(external_stylesheets=[dbc.themes.LUMEN])
+server = app.server
+
 df = pd.read_csv("data1/updated_data.csv")
 
 
@@ -170,10 +172,10 @@ sidebar = html.Div(
         dbc.Nav(
             [
                 dbc.NavLink("Home", href="/", active="exact"),
-                dbc.NavLink("Covid-19 Total Cases", href="/page-1", active="exact"),
-                dbc.NavLink("Covid-19 Total Deaths", href="/page-2", active="exact"),
-                dbc.NavLink("Daily Cases and Deaths", href="/page-3", active="exact"),
-                dbc.NavLink("Continents", href="/page-4", active="exact"),
+                dbc.NavLink("Covid-19 Total Cases", href="/total_cases", active="exact"),
+                dbc.NavLink("Covid-19 Total Deaths", href="/total_deaths", active="exact"),
+                dbc.NavLink("Daily Cases and Deaths", href="/daily", active="exact"),
+                dbc.NavLink("Continents", href="/continents", active="exact"),
             ],
             vertical=True,
             pills=True,
@@ -357,13 +359,13 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 def render_page_content(pathname):
     if pathname == "/":
         return home
-    elif pathname == "/page-1":
+    elif pathname == "/total_cases":
         return total_cases
-    elif pathname == "/page-2":
+    elif pathname == "/total_deaths":
         return total_deaths
-    elif pathname == "/page-3":
+    elif pathname == "/daily":
         return new_cases, new_deaths
-    elif pathname == "/page-4":
+    elif pathname == "/continents":
         return stats
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
